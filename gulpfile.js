@@ -12,7 +12,7 @@ const path = require('path');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
 const child = require('child_process');
-const fs = require('fs');
+const inject = require('gulp-inject-string');
 
 const isDevEnv = process.env.NODE_ENV === 'development';
 
@@ -68,7 +68,16 @@ let jsFiles = 'src/javascript/!(vendors)*.js',
 gulp.task('scripts', function() {
   return gulp.src(jsFiles)
     .pipe(
-      gulpIf(isDevEnv, sourcemaps.init()),
+      inject.replace(
+        /\$\$%NODE_ENV%\$\$/,
+        process.env.NODE_ENV,
+      ),
+    )
+    .pipe(
+      inject.replace(
+        /('|")\$\$%DEBUG%\$\$('|")/, 
+        !!process.env.DEBUG,
+      ),
     )
     .pipe(concat('app.min.js'))
     .pipe(uglify())

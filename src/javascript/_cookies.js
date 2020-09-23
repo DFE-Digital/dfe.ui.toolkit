@@ -27,6 +27,16 @@
     }
   }
 
+  var COOKIE_DOMAIN = (function () {
+    if ('$$%DEBUG%$$' === true) {
+      return window.location.hostname;
+    }
+    if ('$$%NODE_ENV%$$' === 'development') {
+      return '.azurewebsites.net';
+    }
+    return '.education.gov.uk';
+  })();
+
   var GovUKCookie = {
     get: function (name) {
       var value = Cookies.get(name);
@@ -39,7 +49,7 @@
       var GOVUK_COOKIE_OPTIONS = {
         expires: 365, // days
         secure: true,
-        domain: '.education.gov.uk'
+        domain: COOKIE_DOMAIN
       };
       
       if (name === COOKIE_NAMES.POLICY) {
