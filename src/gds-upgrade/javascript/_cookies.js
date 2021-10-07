@@ -4,6 +4,9 @@ var COOKIE_NAMES = {
   GA: '_ga',
   GA_GID: '_gid',
   GA_GAT: '_gat',
+  GA_GAT_1: '_gat_gtag_UA_114739594_1',
+  GA_GAT_2: '_gat_gtag_UA_114739594_2',
+  GA_GAT_3: '_gat_gtag_UA_114739594_3',
   USER_BANNER_LAST_SEEN: 'user_banner_last_seen'
 };
 
@@ -49,8 +52,7 @@ var GovUKCookie = {
     }
 
     return window.Cookies.remove(
-      name,
-      GOVUK_COOKIE_OPTIONS
+      name
     );
   }
 };
@@ -61,6 +63,9 @@ var GovUKCookie = {
   GovUKCookie.remove(COOKIE_NAMES.PREFERENCES_SET);
   GovUKCookie.remove(COOKIE_NAMES.GA);
   GovUKCookie.remove(COOKIE_NAMES.GA_GAT);
+  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_1);
+  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_2);
+  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_3);
   GovUKCookie.remove(COOKIE_NAMES.GA_GID);
 })();
 
