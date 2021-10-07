@@ -1,74 +1,25 @@
 var COOKIE_NAMES = {
-  PREFERENCES_SET: 'cookies_preferences_set',
-  POLICY: 'cookies_policy',
-  GA: '_ga',
-  GA_GID: '_gid',
-  GA_GAT: '_gat',
-  GA_GAT_1: '_gat_gtag_UA_114739594_1',
-  GA_GAT_2: '_gat_gtag_UA_114739594_2',
-  GA_GAT_3: '_gat_gtag_UA_114739594_3',
   USER_BANNER_LAST_SEEN: 'user_banner_last_seen'
-};
-
-var GOVUK_COOKIE_OPTIONS = {
-  expires: 365, // days
-  secure: true,
-  domain: '.education.gov.uk'
-};
-
-var GovUKCookie = {
-  getRaw: function (name) {
-    if (!window.Cookies) {
-      return;
-    }
-
-    return window.Cookies.get(name);
-  },
-  get: function (name) {
-    if (!window.Cookies) {
-      return;
-    }
-
-    var value = window.Cookies.get(name);
-    if (value) {
-      return JSON.parse(value);
-    }
-    return value;
-  },
-  set: function (name, value) {
-    if (!window.Cookies) {
-      return;
-    }
-
-    return window.Cookies.set(
-      name,
-      value,
-      GOVUK_COOKIE_OPTIONS
-    );
-  },
-  remove: function (name) {
-    if (!window.Cookies) {
-      return;
-    }
-
-    return window.Cookies.remove(
-      name
-    );
-  }
 };
 
 // function that will remove any existing tracking cookies on page load
 (function () {
-  GovUKCookie.remove(COOKIE_NAMES.POLICY);
-  GovUKCookie.remove(COOKIE_NAMES.PREFERENCES_SET);
-  GovUKCookie.remove(COOKIE_NAMES.GA);
-  GovUKCookie.remove(COOKIE_NAMES.GA_GAT);
-  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_1);
-  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_2);
-  GovUKCookie.remove(COOKIE_NAMES.GA_GAT_3);
-  GovUKCookie.remove(COOKIE_NAMES.GA_GID);
+  var cookies = document.cookie.split("; ");
+  console.log(cookies);
+  for (var c = 0; c < cookies.length; c++) {
+      var d = window.location.hostname.split(".");
+      while (d.length > 0) {
+          var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+          var p = location.pathname.split('/');
+          document.cookie = cookieBase + '/';
+          while (p.length > 0) {
+              document.cookie = cookieBase + p.join('/');
+              p.pop();
+          };
+          d.shift();
+      }
+  }
 })();
-
 
 /**
  * Section to handle review users banner
