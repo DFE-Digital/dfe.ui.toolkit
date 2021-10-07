@@ -55,7 +55,7 @@ var GovUKCookie = {
   var cookies = document.cookie.split("; ");
   for (var c = 0; c < cookies.length; c++) {
     // skip if it is the review users banner
-    if(cookies[c].indexOf(COOKIE_NAMES.USER_BANNER_LAST_SEEN) !== -1) {
+    if(cookies[c].indexOf(COOKIE_NAMES.USER_BANNER_LAST_SEEN) !== 0) {
       console.log(cookies[c]);
       var d = window.location.hostname.split(".");
       while (d.length > 0) {
