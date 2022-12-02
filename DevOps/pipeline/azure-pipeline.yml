@@ -102,18 +102,20 @@ stages:
         variables:
         - group: dsi-${{var.key}}-kv
         jobs:
-        - task: AzureFileCopy@4
-          inputs:
-        ${{ if or(eq(var.key, 'dev'), eq(var.key, 'tran')) }}:
-            azureSubscription: $(devServiceConnection)
-        ${{ elseif eq(var.key, 'pr') }}:
-            azureSubscription: $(prodServiceConnection)
-        ${{ else }}:
-            azureSubscription: $(testServiceConnection)    
-            SourcePath: $(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist
-            Destination: 'AzureBlob' 
-            storage: 's141d01signinshdstr'
-            ContainerName: 'ui-assets-test'
+          - job: copyfiles
+            steps:
+            - task: AzureFileCopy@5
+              inputs:
+            ${{ if or(eq(var.key, 'dev'), eq(var.key, 'tran')) }}:
+                azureSubscription: $(devServiceConnection)
+            ${{ elseif eq(var.key, 'pr') }}:
+                azureSubscription: $(prodServiceConnection)
+            ${{ else }}:
+                azureSubscription: $(testServiceConnection)    
+                SourcePath: $(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist
+                Destination: 'AzureBlob' 
+                storage: 's141d01signinshdstr'
+                ContainerName: 'ui-assets-test'
 
 
 
