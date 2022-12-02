@@ -104,7 +104,7 @@ stages:
         jobs:
           - job: copyfiles
             steps:
-            - task: AzureFileCopy@5
+            - task: AzureFileCopy@4
               inputs:
                 azureSubscription: $(devServiceConnection)
                 SourcePath: $(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist
