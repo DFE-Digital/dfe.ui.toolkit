@@ -113,7 +113,7 @@ stages:
                   az storage blob upload-batch \
                     --destination "ui-assets-test" \
                     --account-name "s141d01signinshdstr" \
-                    --source "$(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist"
+                    --source "$(Agent.BuildDirectory)/$(outputDir)"
 
 
 
