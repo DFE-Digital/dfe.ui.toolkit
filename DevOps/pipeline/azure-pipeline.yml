@@ -110,5 +110,5 @@ stages:
                     azureSubscription: $(devServiceConnection)
                     scriptType: 'pscore'
                     scriptLocation: 'scriptPath'
-                    scriptPath: 'powershell/cdnContentDeployment.ps1'
+                    scriptPath: 'DevOps/powershell/cdnContentDeployment.ps1'
                     workingDirectory: $(System.DefaultWorkingDirectory)
