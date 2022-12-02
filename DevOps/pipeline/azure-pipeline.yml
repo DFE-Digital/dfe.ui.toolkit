@@ -105,8 +105,8 @@ stages:
           - job: copyfiles
             steps:
              - task: AzureCLI@1
-              displayName: White List Agent IP
-              inputs:
+               displayName: White List Agent IP
+               inputs:
                 azureSubscription: $(devServiceConnection)
                 scriptLocation: inlineScript
                 inlineScript: |
