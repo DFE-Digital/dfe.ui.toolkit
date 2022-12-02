@@ -102,16 +102,18 @@ stages:
         variables:
         - group: dsi-${{var.key}}-kv
         jobs:
-          - task: AzureCLI@1
-            displayName: Deploy the UI
-            inputs:
-              azureSubscription: $(devServiceConnection)
-              scriptLocation: inlineScript
-              inlineScript: |
-                az storage blob upload-batch \
-                  --destination "ui-assets-test" \
-                  --account-name "s141d01signinshdstr" \
-                  --source "$(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist"
+          - job: copyfiles
+            steps:
+            - task: AzureCLI@1
+              displayName: Deploy the UI
+              inputs:
+                azureSubscription: $(devServiceConnection)
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az storage blob upload-batch \
+                    --destination "ui-assets-test" \
+                    --account-name "s141d01signinshdstr" \
+                    --source "$(System.DefaultWorkingDirectory)/dfe.ui.toolkit/drop/dist"
 
 
 
