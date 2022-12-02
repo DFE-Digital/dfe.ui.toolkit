@@ -111,7 +111,7 @@ stages:
                 scriptLocation: inlineScript
                 inlineScript: |
                   $publicIp = Invoke-RestMethod -uri https://api.ipify.org
-                  az storage account network-rule add -g $(ShdResourceGroupName) --account-name $(StorageAccountName) --ip-address $publicIp
+                  az storage account network-rule add -g 's141d01-shd' --account-name 's141d01signinshdstr' --ip-address $publicIp
              - task: AzureCLI@1
                displayName: Deploy the UI
                inputs:
