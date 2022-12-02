@@ -104,23 +104,11 @@ stages:
         jobs:
           - job: copyfiles
             steps:
-             - task: AzureCLI@1
-               displayName: White List Agent IP
-               inputs:
-                azureSubscription: $(devServiceConnection)
-                scriptLocation: inlineScript
-                inlineScript: |
-                  $publicIp = Invoke-RestMethod -uri https://api.ipify.org
-                  az storage account network-rule add -g 's141d01-shd' --account-name 's141d01signinshdstr' --ip-address $publicIp
-             - task: AzureCLI@1
-               displayName: Deploy the UI
-               inputs:
-                  azureSubscription: $(devServiceConnection)
-                  scriptLocation: inlineScript
-                  inlineScript: |
-                    az storage blob upload-batch \
-                      --destination "ui-assets-test" \
-                      --account-name "s141d01signinshdstr" \
-                      --source "$(Agent.BuildDirectory)/$(outputDir)"
-           
-
+              - task: AzureCLI@2
+                  displayName: upload to storage account
+                  inputs:
+                    azureSubscription: $(devServiceConnection)
+                    scriptType: 'pscore'
+                    scriptLocation: 'scriptPath'
+                    scriptPath: 'powershell/cdnContentDeployment.ps1'
+                    workingDirectory: $(System.DefaultWorkingDirectory)
