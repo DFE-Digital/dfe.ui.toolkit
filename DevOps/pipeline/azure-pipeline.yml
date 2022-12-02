@@ -113,14 +113,14 @@ stages:
                   $publicIp = Invoke-RestMethod -uri https://api.ipify.org
                   az storage account network-rule add -g $(ShdResourceGroupName) --account-name $(StorageAccountName) --ip-address $publicIp
              - task: AzureCLI@1
-              displayName: Deploy the UI
-              inputs:
-                azureSubscription: $(devServiceConnection)
-                scriptLocation: inlineScript
-                inlineScript: |
-                  az storage blob upload-batch \
-                    --destination "ui-assets-test" \
-                    --account-name "s141d01signinshdstr" \
-                    --source "$(Agent.BuildDirectory)/$(outputDir)"
+                displayName: Deploy the UI
+                inputs:
+                  azureSubscription: $(devServiceConnection)
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    az storage blob upload-batch \
+                      --destination "ui-assets-test" \
+                      --account-name "s141d01signinshdstr" \
+                      --source "$(Agent.BuildDirectory)/$(outputDir)"
            
 
