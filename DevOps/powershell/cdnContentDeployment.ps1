@@ -1,4 +1,12 @@
 
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true)]
+    [string]
+    $ServiceConnection
+      
+)
+
 #Empty Storage Container Contents
 $publicIp = Invoke-RestMethod -uri https://api.ipify.org
 
@@ -7,7 +15,7 @@ az storage account network-rule add -g 's141d01-shd' --account-name 's141d01sign
 
 Start-Sleep 180
 
-#az storage blob delete-batch --account-name $(StorageAccountName) --source $(UIContainerName)
+az storage blob upload-batch --account-name 's141d01signinshdstr' --source 'ui-assets-test' --SourcePath $Env:AGENT_WORKFOLDER
 
 
 #Copy Content to Storage Account Container
@@ -22,6 +30,7 @@ Start-Sleep 180
 
 #Remove agent IP address from Storage Account
 #az storage account network-rule remove -g $(ShdResourceGroupName) --account-name $(StorageAccountName) --ip-address $(agentIp)
+az storage account network-rule remove -g 's141d01-shd' --account-name 's141d01signinshdstr' --ip-address $publicIp
 
 #Read Secrets: 
 #s141d01-shd/s141d01-signin-kv/cdnAssetsVersion
