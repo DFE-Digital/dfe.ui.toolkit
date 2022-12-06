@@ -1,11 +1,11 @@
 
-[CmdletBinding()]
-param (
-    [Parameter(Mandatory = $true)]
-    [string]
-    $ServiceConnection
+#[CmdletBinding()]
+#param (
+ #   [Parameter(Mandatory = $true)]
+  #  [string]
+   # $ServiceConnection
       
-)
+#)
 
 #Empty Storage Container Contents
 $publicIp = Invoke-RestMethod -uri https://api.ipify.org
