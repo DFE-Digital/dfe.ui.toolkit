@@ -85,6 +85,9 @@ variables:
   ${{ else }}:
     value: false
 
+variables:
+- group: dsi-global
+
 stages:
 
 # Code Scans & Build the artifact for deployment
